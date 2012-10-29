@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    #myCanvas {
+        border: 1px solid #9C9898;
+      }
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+  </style>
+ 
+  </head>
+ <body> 
+  
+  <audio id="1" src="sounds/a.wav" type="audio/mp3">
+  </audio>
+
+  <audio id="2" src="sounds/b.wav" type="audio/mp3"/>
+  </audio>
+  
+  <audio id="3" src="sounds/c.wav" type="audio/mp3"/>
+  </audio>
+
+  <audio id="4" src="sounds/d.wav" type="audio/mp3"/>
+  </audio>
+  
+  <audio id="5" src="sounds/e.wav" type="audio/mp3"/>
+  </audio>
+  
+  <audio id="6" src="sounds/f.wav" type="audio/mp3"/>
+  </audio>
+  
+  <audio id="7" src="sounds/g.wav" type="audio/mp3"/>
+  </audio>
+  
+  <audio id="8" src="sounds/h.wav" type="audio/mp3"/>
+  </audio>
+  <!--
+  <audio id="i" src="/var/www/projects/pianokeys/i.mp3"type="audio/mp3"/></audio>
+  <audio id="j" src="/var/www/projects/pianokeys/j.mp3"type="audio/mp3"/></audio>
+  <audio id="k" src="/var/www/projects/pianokeys/k.mp3"type="audio/mp3"/></audio>
+  <audio id="l" src="/var/www/projects/pianokeys/l.mp3"type="audio/mp3"/></audio>
+  <audio id="m" src="/var/www/projects/pianokeys/m.mp3"type="audio/mp3"/></audio>
+  <audio id="n" src="/var/www/projects/pianokeys/n.mp3"type="audio/mp3"/></audio>
+  <audio id="o" src="/var/www/projects/pianokeys/o.mp3"type="audio/mp3"/></audio>
+ -->
+ 
+    <canvas id="myCanvas" width="5950" height="200"></canvas>
+
+  </body>	
+	
+   <script src="jquery.js"></script>
+   <script type="text/javascript" src="jquery-jmp3.js"></script>   
+   <script type="text/javascript" src="ocanvas.js"></script>      
+   <script>
+
+     $(function(){
+
+/*
+      var canvas = document.getElementById('myCanvas');
+      var context = [];
+      var contexta =[]; 
+*/	  
+	  var rectangle = [];
+	  var audio={};
+      var x=0,y=0;
+	  
+	 function play(x,y) {
+	 
+	    if(!audio["cache"])
+	      $("#"+x).trigger('play');
+		else{		
+		  $("#"+audio["cache"]).trigger('stop');
+		  $("#"+x).trigger('play');
+		 } 
+		setTimeout(function(){
+		y.fill = "#fff";
+		canvas.redraw();
+		},100);
+	    audio["cache"] = x;
+	 }
+	  
+var canvas = oCanvas.create({
+	canvas: "#myCanvas"
+});
+      for(var i=0;i<=7;i++)
+      {
+rectangle[i]= canvas.display.rectangle({
+	x: 1+x,
+	y: 1,
+	width: 50,
+	height: 150,
+	fill: "#fff",
+	id : i,
+    stroke: "outside 2px #000"
+});
+      x = x+50;
+     
+canvas.addChild(rectangle[i]);	
+
+rectangle[i].bind("click tap", function () {
+    this.fill = "#000";
+  	canvas.redraw();
+	play(this.id,this);
+});  
+	}  
+	/*
+      for(var i=0;i<=7;i++)
+      {
+      context[i] = canvas.getContext('2d');
+      context[i].beginPath();
+       
+      context[i].rect(1+x, 1, 50, 150);
+      context[i].fillStyle = 'white';
+      context[i].fill();
+      context[i].strokeStyle = 'black';
+      context[i].lineWidth = 1;
+      context[i].stroke();
+         x=x+50; 
+      }
+     for(var j=0;j<=6;j++)
+      {
+       contexta[j] = canvas.getContext('2d');
+       contexta[j].beginPath();
+        contexta[j].rect(40+y, 1, 20, 70);
+      contexta[j].fillStyle = 'black';
+      contexta[j].fill();
+      contexta[j].lineWidth = 1;
+      contexta[j].strokeStyle = 'bl';
+      contexta[j].stroke();
+      y=y+50;
+      }
+        $("#myCanvas").click(function(){
+            console.log("h");
+           // document.getElementById("a").play();
+		   $("#a").jmp3();
+        });
+  */
+  });
+ </script>
+</html>
